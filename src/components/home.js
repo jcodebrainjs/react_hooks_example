@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import { Redirect } from "react-router";
-import { getUrl } from "../data/get-url";
-import { Store } from "../store";
+import { Store, functions } from "../modules/giphyCarousel";
 import {
   CarouselWrapper,
   CarouselNavigation,
@@ -9,16 +8,17 @@ import {
   Loading
 } from "./Home/";
 
-const HomeWithMatch = ({
+const { getUrl } = functions;
+
+const HomeWithState = ({
   state,
   dispatch,
-  state: { loading, pagination, data, ndx },
+  state: { loading, pagination, ndx },
   page
 }) => {
-  const getUrlPage = getUrl(dispatch);
   useEffect(() => {
     if (page !== undefined && state.page !== page) {
-      getUrlPage(page);
+      getUrl(dispatch)(page);
     }
   });
   return page === undefined ? (
@@ -29,15 +29,19 @@ const HomeWithMatch = ({
       <Loading loading={loading} />
       <PageCount pagination={pagination} ndx={ndx} />
       <CarouselNavigation pagination={pagination} />
-      <CarouselWrapper list={data} ndx={ndx} />
+      <CarouselWrapper dispatch={dispatch} />
     </div>
   );
 };
 
-const Home = ({ match }) => (
-  <Store.Consumer>
-    {value => <HomeWithMatch {...value} {...match.params} />}
-  </Store.Consumer>
-);
+const Home = ({ match }) => {
+  const Giphy = Store.Store;
+  const [state, dispatch] = useReducer(Store.reducer, {});
+  return (
+    <Giphy.Provider value={{ state, dispatch }}>
+      <HomeWithState state={state} dispatch={dispatch} {...match.params} />}
+    </Giphy.Provider>
+  );
+};
 
 export default Home;

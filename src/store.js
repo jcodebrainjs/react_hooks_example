@@ -1,27 +1,20 @@
-import React, { useReducer } from "react";
+import React from "react";
 
-export const Store = React.createContext();
+const stores = {};
 
-const initialState = {};
+export const createStore = (name, reducers = {}) => {
+  const Store = React.createContext(name);
+  const reducer = (state = {}, action) => {
+    return action && reducers[action.type]
+      ? reducers[action.type](state, action.payload)
+      : state;
+  }
+  stores[name] = {
+    Store,
+    reducer,
+  };
 
-let reducers = {}
-
-function reducer(state = {}, action) {
-  return action && reducers[action.type] ? reducers[action.type](state, action.payload) : state
-}
-
-export const addReducers = (newReducers) => {
-  reducers = { ...reducers, ...newReducers}
-}
-
-export const StoreProvider = props => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const value = { state, dispatch };
-  return (
-    <Store.Provider value={value}>
-      {props.children}
-    </Store.Provider>
-  );
+  return stores[name];
 };
 
-export default { StoreProvider, addReducers, Store };
+export default createStore;

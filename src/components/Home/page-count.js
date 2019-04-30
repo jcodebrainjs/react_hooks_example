@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types'
 
 const PageCount = ({ pagination, ndx }) => {
   if (pagination !== null) {
@@ -14,15 +13,5 @@ const PageCount = ({ pagination, ndx }) => {
   }
   return null
 };
-
-PageCount.propTypes = {
-  pagination: PropTypes.object,
-  ndx: PropTypes.number,
-}
-
-PageCount.defaultProps = {
-  pagination: null,
-  ndx: 0,
-}
 
 export default PageCount;
