@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Redirect } from 'react-router'
+import { Redirect } from "react-router";
 import { getUrl } from "../data/get-url";
 import { Store } from "../store";
 import {
@@ -9,22 +9,29 @@ import {
   Loading
 } from "./Home/";
 
-const HomeWithMatch = ({ state, dispatch, state: { loading, pagination, data, ndx }, page }) => {
-  const getUrlPage = getUrl();
+const HomeWithMatch = ({
+  state,
+  dispatch,
+  state: { loading, pagination, data, ndx },
+  page
+}) => {
+  const getUrlPage = getUrl(dispatch);
   useEffect(() => {
     if (page !== undefined && state.page !== page) {
-      getUrlPage(page)(dispatch);
+      getUrlPage(page);
     }
   });
-  return page === undefined ? (<Redirect to='/page/1' />) : (
-        <div className="content">
-          <h1 className="title">Kitty Carousel</h1>
-          <Loading loading={loading} />
-          <PageCount pagination={pagination} ndx={ndx} />
-          <CarouselNavigation pagination={pagination} />
-          <CarouselWrapper list={data} ndx={ndx} dispatch={dispatch} />
-        </div>
-  )
+  return page === undefined ? (
+    <Redirect to="/page/1" />
+  ) : (
+    <div className="content">
+      <h1 className="title">Kitty Carousel</h1>
+      <Loading loading={loading} />
+      <PageCount pagination={pagination} ndx={ndx} />
+      <CarouselNavigation pagination={pagination} />
+      <CarouselWrapper list={data} ndx={ndx} />
+    </div>
+  );
 };
 
 const Home = ({ match }) => (
