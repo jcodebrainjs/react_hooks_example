@@ -1,6 +1,6 @@
 import React from "react";
 
-const PageCount = ({ pagination, ndx }) => {
+const PageCount = ({ pagination = null, ndx }) => {
   if (pagination !== null) {
     const pages = Math.floor(pagination.total_count / pagination.count) + 1
     const page = Math.floor(pagination.offset/pagination.count) + 1
