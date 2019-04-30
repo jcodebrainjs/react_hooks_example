@@ -1,0 +1,108 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.loading {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  pointer-events: none;
+}
+
+.loading__card {
+  width: 50px;
+  height: 50px;
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: auto;
+  display: flex;
+  opacity: 1;
+  justify-content: center;
+  align-items: center;
+  transition: opacity .5s;
+}
+
+.loading__card.loaded {
+  opacity: 0;
+}
+
+.loading__card_img {
+  width: 50%;
+  margin: auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { 
+      transform: rotate(0deg); 
+  } to { 
+      transform: rotate(360deg); 
+  }
+}
+
+#app {
+  display: initial !important;
+}
+
+/* Navigation */
+.nav__container {
+  background-color: #666;
+  display: flex;
+}
+
+.nav__container ul {
+  padding: 0 10px;
+  margin: 0;
+}
+
+.nav__container ul li {
+  list-style: none;
+  float: left;
+  padding: 5px;
+  margin: 5px;
+}
+
+.nav__container ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav__container ul li a:hover {
+  color: #999;
+  text-decoration: none;
+}
+
+.page-count, .carousel {
+  margin: 20px 0;
+}
+
+/* Carousel */
+.carousel-wrapper .arrow-button:hover {
+  cursor: pointer;
+}
+
+.carousel-wrapper .arrow-button:hover {
+  color: #999;
+}
+
+.container.carousel {
+  display: flex;
+  justify-content: center;
+}
+
+/* Content */
+.content {
+  margin: 20px;
+}
